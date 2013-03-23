@@ -1,11 +1,12 @@
 # Create your views here.
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 from django.views.generic import FormView
 from commons.forms import CreateAuctionForm
 
 
 def home(request):
-    return render_to_response('home.html')
+    return render_to_response('home.html', context_instance=RequestContext(request))
 
 
 class CreateAuctionView(FormView):

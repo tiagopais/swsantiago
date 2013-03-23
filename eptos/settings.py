@@ -122,7 +122,8 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'south',
     'bootstrap_toolkit',
-    'commons'
+    'commons',
+    'registration'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -153,3 +154,7 @@ LOGGING = {
         },
     }
 }
+
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
