@@ -3,7 +3,7 @@ import sys
 import site
 
 
-ALLDIRS = ['/home/ubuntu/.virtualenvs/swsantiago/lib/python2.7/site-packages', '/srv/www/swsantiago']
+ALLDIRS = ['/home/ubuntu/.virtualenvs/swsantiago/lib/python2.7/site-packages', '/srv/swsantiago']
 
 import os
 
