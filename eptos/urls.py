@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 
 urlpatterns = patterns('',
                        url(r'^$', 'commons.views.home', name='home'),
+
                        url(r'^login/$', login),
                        url(r'^logout/$', logout, {'next_page': reverse_lazy('common.views.home')})
                        # url(r'^eptos/', include('eptos.foo.urls')),
