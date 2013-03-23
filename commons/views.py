@@ -1,5 +1,4 @@
 # Create your views here.
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -17,15 +16,9 @@ def home(request):
         context_instance=RequestContext(request))
 
 
-@login_required
-def auction_detail(request, auction_id):
-    auction = get_object_or_404(Auction, pk=auction_id)
-
-    return render_to_response('auction_detail.html',
-                              {
-                                  'auction': auction
-                              },
-                              context_instance=RequestContext(request))
+class AuctionDetailView(DetailView):
+    model = Auction
+    template_name = 'auction_detail.html'
 
 
 class CreateAuctionView(FormView):
@@ -37,8 +30,10 @@ class CreateAuctionView(FormView):
         auction.user = self.request.user
         auction.save()
 
+        self.request.flash['success'] = 'Auction created successfully!'
+
         return HttpResponseRedirect(
-            reverse_lazy(auction_detail, args=(auction.id,)))
+            reverse_lazy('auction_detail', args=(auction.id,)))
 
 
 class AuctionListView(ListView):

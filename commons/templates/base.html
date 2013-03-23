@@ -59,6 +59,13 @@
 </div>
 
 <div class="container">
+
+{% if request.flash.success %}
+    <div class="alert alert-success">
+        {{ request.flash.success }}
+    </div>
+{% endif %}
+
 {% block content %}
 {% endblock %}
 </div>
