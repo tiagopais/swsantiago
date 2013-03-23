@@ -3,9 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
+from django.views.generic import FormView, ListView
 from django.template import RequestContext
-from django.views.generic import FormView
 from commons.forms import CreateAuctionForm
+from commons.models import Auction
 
 
 def home(request):
@@ -29,3 +30,8 @@ class CreateAuctionView(FormView):
         auction.save()
 
         return HttpResponseRedirect(reverse_lazy(auction_detail, args=(auction.id,)))
+
+
+class AuctionListView(ListView):
+    model = Auction
+    template_name = 'auction_list.html'

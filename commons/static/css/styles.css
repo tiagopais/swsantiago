@@ -1,0 +1,14 @@
+span.price {
+    color: #f00000;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.auction_list_display h3 {
+    margin-top: 0;
+    line-height: inherit;
+}
+
+.auction_list_display {
+    margin-bottom: 30px;
+}
