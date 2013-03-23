@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="row auction_list_display">
+    <div class="span2">
+        <img src="{% static 'img/stock_room.png' %}" />
+    </div>
+    <div class="span6">
+        <h3>{{ auction.name }}</h3>
+        {{ auction.pretty_auction_type }}
+        <address>{{ auction.address }}</address>
+        <a href="#" class="btn btn-success">Apply!</a>
+    </div>
+    <div class="span2">
+        <span class="price">{{ auction.pretty_minimum_bid }}</span>
+    </div>
+</div>

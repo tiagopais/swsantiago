@@ -1,7 +1,8 @@
 # Create your views here.
 from django.shortcuts import render_to_response
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from commons.forms import CreateAuctionForm
+from commons.models import Auction
 
 
 def home(request):
@@ -18,4 +19,9 @@ class CreateAuctionView(FormView):
         auction.user = self.request.user
         auction.save()
 
-        return super(CreateAuctionView,self).form_valid(form)
+        return super(CreateAuctionView, self).form_valid(form)
+
+
+class AuctionListView(ListView):
+    model = Auction
+    template_name = 'auction_list.html'
