@@ -12,3 +12,12 @@ span.price {
 .auction_list_display {
     margin-bottom: 30px;
 }
+
+.auction_list_display h3 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.apply_button {
+    margin-top: 10px;
+}

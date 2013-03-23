@@ -15,7 +15,6 @@ def home(request):
 
 @login_required
 def auction_detail(request, auction_id):
-
     auction = get_object_or_404(Auction, pk=auction_id)
 
     return render_to_response('auction_detail.html',
@@ -31,11 +30,11 @@ class CreateAuctionView(FormView):
 
     def form_valid(self, form):
         auction = form.instance
-
         auction.user = self.request.user
         auction.save()
 
-        return HttpResponseRedirect(reverse_lazy(auction_detail, args=(auction.id,)))
+        return HttpResponseRedirect(
+            reverse_lazy(auction_detail, args=(auction.id,)))
 
 
 class AuctionListView(ListView):
