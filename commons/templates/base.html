@@ -30,7 +30,7 @@
                 <ul class="nav pull-right right">
                     {% if user.is_authenticated %}
                         <li>
-                            <a href="#">
+                            <a href="{% url 'user_profile' %}">
                                 <span>{{ user.username }}</span>
                             </a>
                         </li>
