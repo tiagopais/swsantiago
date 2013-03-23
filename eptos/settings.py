@@ -1,6 +1,7 @@
 from unipath import Path
 
 PROJECT_ROOT = Path(__file__).ancestor(2)
+LOGIN_URL = "/login/"
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
