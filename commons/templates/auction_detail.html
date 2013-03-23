@@ -1,7 +1,25 @@
 {% extends 'base.html' %}
 
 {% load bootstrap_toolkit %}
+{% load static %}
 
 {% block content %}
 
+    <div class="row">
+        <div class="span12">
+            <h1>{{ auction.name }}</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">
+            <img src="{% static 'img/stock_room.png' %}" />
+        </div>
+        <div class="span6">
+            {{ auction.pretty_auction_type }}
+            <address>{{ auction.address }}</address>
+        </div>
+        <div class="span2">
+        </div>
+    </div>
 {% endblock %}

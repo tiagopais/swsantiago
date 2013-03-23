@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.views.generic import FormView, ListView, DetailView, TemplateView
+from django.shortcuts import get_object_or_404
 from django.template import RequestContext
 from commons.forms import CreateAuctionForm
 from commons.models import Auction
@@ -18,9 +19,13 @@ def home(request):
 
 @login_required
 def auction_detail(request, auction_id):
-    return render_to_response(
-        'auction_detail.html',
-        context_instance=RequestContext(request))
+    auction = get_object_or_404(Auction, pk=auction_id)
+
+    return render_to_response('auction_detail.html',
+                              {
+                                  'auction': auction
+                              },
+                              context_instance=RequestContext(request))
 
 
 class CreateAuctionView(FormView):
