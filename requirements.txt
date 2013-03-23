@@ -3,4 +3,5 @@ South==0.7.6
 Unipath==0.2.1
 django-bootstrap-toolkit==2.8.0
 django-extensions==1.1.1
+django-registration==0.8
 wsgiref==0.1.2
