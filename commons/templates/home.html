@@ -139,18 +139,17 @@
 
                 complementAuction: function (auctionMarker, auction) {
                     var that = this;
-
                     var img = '<a href="/auctions/' + auction.id + '" target="_blank"><img src="{% static "img/stock_room.png" %}"></a>';
                     var contentString =
                             '<div class="content">' +
-                            '   <div class="imgContent">' + img + '</div>' +
-                            '   <div class="bodyContent">' +
-                            '       <h3>' + auction.name + '</h3>' +
-                            '       <address>' + auction.address + '</address>' +
-                            '       <span class="price">' + auction.currentBid + '</span>' +
-                            '       <a class="btn btn-primary" href="/auctions/' + auction.id + '">Bid for this place!</a>' +
-                            '   </div>' +
-                            '</div>';
+                                    '   <div class="imgContent">' + img + '</div>' +
+                                    '   <div class="bodyContent">' +
+                                    '       <h3>' + auction.name + '</h3>' +
+                                    '       <address>' + auction.address + '</address>' +
+                                    '       <a class="btn btn-success" href="/auctions/' + auction.id + '">Bid for this place!</a>' +
+                                    '       <span class="price">' + auction.currentBid + '</span>' +
+                                    '   </div>' +
+                                    '</div>';
 
                     var infowindow = new google.maps.InfoWindow({content:contentString});
 
@@ -175,6 +174,12 @@
             <a class="brand" href="/">BidHome</a>
             <div class="nav-collapse collapse">
                 <ul class="nav pull-right right">
+                    <li class="btn-inverse">
+                        <a href="{% url 'create_auction' %}">
+                            <i class="icon-plus icon-white"></i>
+                            Create an auction!
+                        </a>
+                    </li>
                     {% if user.is_authenticated %}
                         <li>
                             <a href="{% url 'user_profile' %}">
@@ -193,10 +198,6 @@
                 </ul>
                 <ul class="nav">
                     <li class="active"><a href="{% url 'auctions_list' %}">Places</a></li>
-
-                    <div class="btn-group">
-                        <a class="btn btn-primary" href="{% url 'create_auction' %}">Create an auction!</a>
-                    </div>
                 </ul>
             </div>
         </div>
