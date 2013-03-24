@@ -19,7 +19,7 @@ class Auction(models.Model):
         ('R', 'Room'))
     auction_type = models.CharField(
         max_length=255,
-        verbose_name='What type of type of place is it?',
+        verbose_name='What type of place is it?',
         choices=AUCTION_TYPE_CHOICES
     )
     minimum_bid = models.DecimalField(
