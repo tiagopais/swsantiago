@@ -31,6 +31,10 @@
             float: left;
         }
 
+        .bodyContent h3 {
+            margin: 0px 0px;
+        }
+
         #map-canvas img {
             max-width: none;
         }
@@ -108,7 +112,9 @@
                                 that.displayAuction({
                                     id : {{ auction.id }},
                                     loc : [results[0].geometry.location.kb, results[0].geometry.location.lb],
-                                    name: '{{ auction.name }}'
+                                    name: '{{ auction.name }}',
+                                    address: '{{ auction.address }}',
+                                    currentBid: '{{ auction.pretty_last_bid }}'
                                 });
                             } else {
                                 console.log("Geocode was not successful for the following reason: " + status);
@@ -137,11 +143,14 @@
                     var img = '<a href="/auctions/' + auction.id + '" target="_blank"><img src="{% static "img/stock_room.png" %}"></a>';
                     var contentString =
                             '<div class="content">' +
-                                    '   <div class="imgContent">' + img + '</div>' +
-                                    '   <div class="bodyContent">' +
-                                            '<h2>' + auction.name + '</h2>'
-                                    '   </div>' +
-                                    '</div>'
+                            '   <div class="imgContent">' + img + '</div>' +
+                            '   <div class="bodyContent">' +
+                            '       <h3>' + auction.name + '</h3>' +
+                            '       <address>' + auction.address + '</address>' +
+                            '       <span class="price">' + auction.currentBid + '</span>' +
+                            '       <a class="btn btn-primary" href="/auctions/' + auction.id + '">Bid for this place!</a>' +
+                            '   </div>' +
+                            '</div>';
 
                     var infowindow = new google.maps.InfoWindow({content:contentString});
 

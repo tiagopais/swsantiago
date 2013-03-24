@@ -25,7 +25,6 @@ def home(request):
         context_instance=RequestContext(request))
 
 
-@login_required
 def auction_detail(request, auction_id):
     auction = get_object_or_404(Auction, pk=auction_id)
 

@@ -32,6 +32,12 @@ class Auction(models.Model):
         c = Context({'auction': self})
         return mark_safe(t.render(c))
 
+    def last_bid(self):
+        if not self.bid_set or not self.bid_set.count():
+            return None
+
+        return self.bid_set.order_by('id').reverse()[0]
+
     def pretty_auction_type(self):
         return dict(Auction.AUCTION_TYPE_CHOICES)[self.auction_type]
 
@@ -40,7 +46,7 @@ class Auction(models.Model):
 
     def pretty_last_bid(self):
         if not self.bid_set or not self.bid_set.count():
-            return u''
+            return self.pretty_minimum_bid()
 
         return u'US$ {0}'.format(self.bid_set.order_by('id').reverse()[0].value)
 

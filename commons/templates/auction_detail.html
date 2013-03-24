@@ -2,6 +2,7 @@
 
 {% load bootstrap_toolkit %}
 {% load static %}
+{% load url from future %}
 
 {% block content %}
 
@@ -15,20 +16,23 @@
         <div class="span2">
             <img src="{% static 'img/stock_room.png' %}" />
         </div>
-        <div class="span8">
+        <div class="span6">
             {{ auction.pretty_auction_type }}
             <address>{{ auction.address }}</address>
         </div>
-        <div class="span2 pull-right">
+        <div class="span4 pull-right">
             <label>Current Bid:</label>
             <span class="price">{{ auction.pretty_last_bid }}</span>
+            {% if auction.last_bid %}
+                <a href="{% url 'user_detail' auction.last_bid.user.id %}">from {{ auction.last_bid.user.username }}</a>
+            {% endif %}
         </div>
     </div>
 
     <div class="row">
         <div class="span2"></div>
         <div class="span10">
-            <form class="form-inline add_bid" method="post" action="{% url commons.views.place_bid auction.id %}">
+            <form class="form-inline add_bid" method="post" action="{% url 'commons.views.place_bid' auction.id %}">
                 {% csrf_token %}
 
                 {{ bid_form|as_bootstrap }}
