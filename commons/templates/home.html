@@ -29,6 +29,13 @@
             width: 300px;
             float: left;
         }
+
+        #map-canvas img {
+            max-width: none;
+        }
+
+        #map-canvas label { width: auto; display:inline; }
+        #map-canvas img { max-width: none; }
     </style>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjeEi63VJhxfGjuIrf6SEEc73LPYJx99o&sensor=true">
@@ -147,44 +154,44 @@
     </script>
 </head>
 <body onload="app.init()">
-{#<div class="navbar navbar-inverse navbar-fixed-top">#}
-{#    <div class="navbar-inner">#}
-{#        <div class="container">#}
-{#            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#                <span class="icon-bar"></span>#}
-{#            </button>#}
-{#            <a class="brand" href="/">BidHome</a>#}
-{#            <div class="nav-collapse collapse">#}
-{#                <ul class="nav pull-right right">#}
-{#                    {% if user.is_authenticated %}#}
-{#                        <li>#}
-{#                            <a href="{% url 'user_profile' %}">#}
-{#                                <span>{{ user.username }}</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a href="{% url 'logout' %}">#}
-{#                                <span>logout</span>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                    {% else %}#}
-{#                        <li><a href="{% url 'django.contrib.auth.views.login' %}?next=/">login</a></li>#}
-{#                        <li><a href="{% url 'registration.views.register' %}">or sign up</a></li>#}
-{#                    {% endif %}#}
-{#                </ul>#}
-{#                <ul class="nav">#}
-{#                    <li class="active"><a href="{% url 'auctions_list' %}">Places</a></li>#}
-{##}
-{#                    <div class="btn-group">#}
-{#                        <a class="btn btn-primary" href="{% url 'create_auction' %}">Create an auction!</a>#}
-{#                    </div>#}
-{#                </ul>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="/">BidHome</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right right">
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'user_profile' %}">
+                                <span>{{ user.username }}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">
+                                <span>logout</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'django.contrib.auth.views.login' %}?next=/">login</a></li>
+                        <li><a href="{% url 'registration.views.register' %}">or sign up</a></li>
+                    {% endif %}
+                </ul>
+                <ul class="nav">
+                    <li class="active"><a href="{% url 'auctions_list' %}">Places</a></li>
+
+                    <div class="btn-group">
+                        <a class="btn btn-primary" href="{% url 'create_auction' %}">Create an auction!</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="map-canvas"/>
 
