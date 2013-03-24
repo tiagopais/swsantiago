@@ -4,8 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap 101 Template</title>
-    <!-- Bootstrap -->
+    <title>BidHome</title>    <!-- Bootstrap -->
     <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
     <link href="{% static "css/styles.css" %}" rel="stylesheet" media="screen">
     <script src="{% static "js/jquery-1.9.1.min.js" %}"></script>
@@ -58,21 +57,21 @@
 
 <div class="container">
 
-{% if request.flash.success %}
-    <div class="alert alert-success">
-        {{ request.flash.success }}
-    </div>
-{% endif %}
+    {% if request.flash.success %}
+        <div class="alert alert-success">
+            {{ request.flash.success }}
+        </div>
+    {% endif %}
 
 
-{% if request.flash.error %}
-    <div class="alert alert-error">
-        {{ request.flash.error }}
-    </div>
-{% endif %}
+    {% if request.flash.error %}
+        <div class="alert alert-error">
+            {{ request.flash.error }}
+        </div>
+    {% endif %}
 
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
 </div>
 
 </body>
