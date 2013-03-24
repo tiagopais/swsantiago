@@ -13,6 +13,9 @@
     </div>
     <div class="span2">
         <span class="price">{{ auction.pretty_minimum_bid }}</span>
+        <span class="price">{{ auction.pretty_last_bid }}</span>
+
+        <br />
         <a href="{% url 'auction_detail' auction.id %}" class="btn btn-success apply_button">Apply!</a>
     </div>
 </div>

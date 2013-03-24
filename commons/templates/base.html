@@ -41,13 +41,11 @@
                         </li>
                     {% else %}
                         <li><a href="{% url 'django.contrib.auth.views.login' %}?next=/">login</a></li>
-                        <li><a href="{% url 'registration.views.register'   %}">or sign up</a></li>
+                        <li><a href="{% url 'registration.views.register' %}">or sign up</a></li>
                     {% endif %}
                 </ul>
                 <ul class="nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li class="active"><a href="{% url 'auctions_list' %}">Places</a></li>
 
                     <div class="btn-group">
                         <a class="btn btn-primary" href="{% url 'create_auction' %}">Create an auction!</a>
