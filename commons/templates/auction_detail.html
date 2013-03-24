@@ -21,6 +21,8 @@
             <address>{{ auction.address }}</address>
         </div>
         <div class="span4 pull-right">
+            <label>Minimum Bid:</label>
+            <span class="price">US$ {{ auction.minimum_bid }}</span>
             <label>Current Bid:</label>
             <span class="price">{{ auction.pretty_last_bid }}</span>
             {% if auction.last_bid %}
