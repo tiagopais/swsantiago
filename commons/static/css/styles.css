@@ -29,3 +29,7 @@ span.price {
 form.add_bid input, form.add_bid button {
     vertical-align: top;
 }
+
+.dropdown-menu img, .dropdown-toggle img {
+    padding-bottom: 4px;
+}
