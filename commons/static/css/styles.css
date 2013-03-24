@@ -21,3 +21,7 @@ span.price {
 .apply_button {
     margin-top: 10px;
 }
+
+form.add_bid input, form.add_bid button {
+    vertical-align: top;
+}

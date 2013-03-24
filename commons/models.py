@@ -42,7 +42,7 @@ class Auction(models.Model):
         if not self.bid_set or not self.bid_set.count():
             return u''
 
-        return u'US$ {0}'.format(self.bid_set.reverse()[0].value)
+        return u'US$ {0}'.format(self.bid_set.order_by('id').reverse()[0].value)
 
 
 class Bid(models.Model):
@@ -51,3 +51,9 @@ class Bid(models.Model):
     creation_date = models.DateField(auto_now_add=True)
     comment = models.TextField()
     value = models.DecimalField(max_digits=7, decimal_places=2)
+
+    def __unicode__(self):
+        return u'{0} - {1}'.format(self.creation_date, self.value)
+
+    def pretty_value(self):
+        return u'US$ {0}'.format(self.value)

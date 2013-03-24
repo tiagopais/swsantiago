@@ -20,19 +20,19 @@
             <address>{{ auction.address }}</address>
         </div>
         <div class="span2">
+            <span class="price">{{ auction.pretty_last_bid }}</span>
         </div>
     </div>
 
     <div class="row">
         <div class="span2"></div>
-        <div class="span6">
-            <form method="post" action="{% url commons.views.place_bid auction.id %}">
+        <div class="span10">
+            <form class="form-inline add_bid" method="post" action="{% url commons.views.place_bid auction.id %}">
                 {% csrf_token %}
-                {{ bid_form|as_bootstrap }}
 
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Place Bid!</button>
-                </div>
+                <input type="text" name="value" id="id_value" placeholder="Value">
+                <textarea id="id_comment" rows="10" cols="30" name="comment" placeholder="Comment"></textarea>
+                <button type="submit" class="btn btn-primary">Place Bid!</button>
             </form>
         </div>
     </div>

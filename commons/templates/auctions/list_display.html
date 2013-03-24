@@ -9,6 +9,7 @@
         <h3><a href="{% url 'auction_detail' auction.id %}">{{ auction.name }}</a></h3>
         {{ auction.pretty_auction_type }}
         <address>{{ auction.address }}</address>
+        <strong>Offered by:</strong> <a href="{% url 'user_detail' auction.user.id %}">{{ auction.user.username }}</a>
     </div>
     <div class="span2">
         <span class="price">{{ auction.pretty_minimum_bid }}</span>
