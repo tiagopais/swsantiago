@@ -7,7 +7,7 @@ admin.autodiscover()
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
 from django.core.urlresolvers import reverse_lazy
-from commons.views import CreateAuctionView, AuctionListView, auction_detail
+from commons.views import CreateAuctionView, AuctionListView, auction_detail, place_bid
 
 urlpatterns = patterns(
     '',
@@ -29,10 +29,13 @@ urlpatterns = patterns(
     url(r'^auctions/(?P<auction_id>\d+)/$',
         auction_detail,
         name='auction_detail'),
+    url(r'^auctions/(?P<auction_id>\d+)/place_bid$',
+        place_bid,
+        name='place_bid'),
     url(r'^auctions/create/$',
         login_required(CreateAuctionView.as_view()),
         name='create_auction'),
-    url(r'^auctions/$', AuctionListView.as_view()),
+    url(r'^auctions/$', AuctionListView.as_view(), name='auctions_list'),
     # url(r'^eptos/', include('eptos.foo.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

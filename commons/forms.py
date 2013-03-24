@@ -1,5 +1,11 @@
 from django import forms
-from commons.models import Auction
+from commons.models import Auction, Bid
+
+
+class PlaceBidForm(forms.ModelForm):
+    class Meta:
+        model = Bid
+        fields = ['value', 'comment']
 
 
 class DetailAuctionForm(forms.ModelForm):

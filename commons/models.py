@@ -38,6 +38,12 @@ class Auction(models.Model):
     def pretty_minimum_bid(self):
         return u'US$ {0}'.format(self.minimum_bid)
 
+    def pretty_last_bid(self):
+        if not self.bid_set or not self.bid_set.count():
+            return u''
+
+        return u'US$ {0}'.format(self.bid_set.reverse()[0].value)
+
 
 class Bid(models.Model):
     user = models.ForeignKey(User)

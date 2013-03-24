@@ -22,4 +22,18 @@
         <div class="span2">
         </div>
     </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span6">
+            <form method="post" action="{% url commons.views.place_bid auction.id %}">
+                {% csrf_token %}
+                {{ bid_form|as_bootstrap }}
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Place Bid!</button>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
