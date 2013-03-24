@@ -15,11 +15,12 @@
         <div class="span2">
             <img src="{% static 'img/stock_room.png' %}" />
         </div>
-        <div class="span6">
+        <div class="span8">
             {{ auction.pretty_auction_type }}
             <address>{{ auction.address }}</address>
         </div>
-        <div class="span2">
+        <div class="span2 pull-right">
+            <label>Current Bid:</label>
             <span class="price">{{ auction.pretty_last_bid }}</span>
         </div>
     </div>

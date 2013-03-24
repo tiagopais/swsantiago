@@ -1,9 +1,195 @@
-{% extends 'base.html' %}
+{% load url from future%}
+{% load static %}
 
-{% load bootstrap_toolkit %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 
-{% block content %}
-    <div class="container">
-        <h1>Hello, world!</h1>
-    </div>
-{% endblock %}
+    <link href="{% static "bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "css/styles.css" %}" rel="stylesheet" media="screen">
+    <script src="{% static "js/jquery-1.9.1.min.js" %}"></script>
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+        body {
+            height: 100%; margin: 0; padding: 0
+        }
+        #map-canvas { height: 100% }
+
+        .imgContent {
+            width: 150px;
+            padding-right: 20px;
+            float: left;
+        }
+
+        .bodyContent {
+            width: 300px;
+            float: left;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjeEi63VJhxfGjuIrf6SEEc73LPYJx99o&sensor=true">
+    </script>
+    <script type="text/javascript">
+        var app =  new function () {
+            var myOptions = {
+                center: new google.maps.LatLng(-34.397, 150.644),
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                mapTypeControl: false,
+                zoomControl: true,
+                panControl : false,
+                rotateControl : false,
+                scaleControl : false,
+                overviewMapControl : false
+            };
+            var me = this;
+            var appMap;
+            var appGeocoder;
+            var currentPosition;
+            var markers;
+            var socket;
+
+            return {
+                init : function() {
+                    var that = this;
+                    this.updateCurrentPosition();
+
+                    me.appGeocoder = new google.maps.Geocoder();
+                    me.appMap = new google.maps.Map(document.getElementById("map-canvas"),myOptions);
+                },
+
+                updateCurrentPosition : function() {
+                    if (navigator.geolocation) {
+                        var that = this;
+
+                        navigator.geolocation.getCurrentPosition(function( position ){
+                                    // Log that this is the initial position.
+                                    console.log( "Position Found" );
+                                    var calculatedPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                                    if (me.currentPosition === undefined) {
+                                        me.appMap.setCenter(calculatedPosition);
+                                    }
+
+                                    me.currentPosition = calculatedPosition;
+
+                                    that.getAuctions();
+                                },
+                                function( error ){
+                                    console.log( "Something went wrong: ", error );
+                                    me.currentPosition =   new google.maps.LatLng(-34.397, 150.644);
+                                },
+                                {
+                                    maximumAge:Infinity,
+                                    enableHighAccuracy: true
+                                } );
+                    } else {
+                        alert('I guess this browser does not support geolocation!');
+                    }
+                },
+
+                getAuctions: function() {
+                    var that = this;
+
+                    {% for auction in auctions %}
+                        me.appGeocoder.geocode( { 'address': '{{ auction.address }}'}, function(results, status) {
+                            if (status == google.maps.GeocoderStatus.OK) {
+                                that.displayAuction({
+                                    id : {{ auction.id }},
+                                    loc : [results[0].geometry.location.kb, results[0].geometry.location.lb],
+                                    name: '{{ auction.name }}'
+                                });
+                            } else {
+                                console.log("Geocode was not successful for the following reason: " + status);
+                            }
+                        });
+                    {% endfor %}
+                },
+
+                displayAuction: function(auction) {
+                    var that = this;
+                    var auctionMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(auction.loc[0], auction.loc[1]),
+                        map: me.appMap,
+                        animation: google.maps.Animation.DROP,
+                        title : auction.name
+                    });
+
+                    that.complementAuction(auctionMarker, auction);
+
+                    return auctionMarker;
+                },
+
+                complementAuction: function (auctionMarker, auction) {
+                    var that = this;
+
+                    var img = '<a href="/auctions/' + auction.id + '" target="_blank"><img src="{% static "img/stock_room.png" %}"></a>';
+                    var contentString =
+                            '<div class="content">' +
+                                    '   <div class="imgContent">' + img + '</div>' +
+                                    '   <div class="bodyContent">' +
+                                            '<h2>' + auction.name + '</h2>'
+                                    '   </div>' +
+                                    '</div>'
+
+                    var infowindow = new google.maps.InfoWindow({content:contentString});
+
+                    google.maps.event.addListener(auctionMarker, 'click', function () {
+                        infowindow.open(me.appMap, auctionMarker);
+                    });
+
+                }
+            }
+        }
+    </script>
+</head>
+<body onload="app.init()">
+{#<div class="navbar navbar-inverse navbar-fixed-top">#}
+{#    <div class="navbar-inner">#}
+{#        <div class="container">#}
+{#            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">#}
+{#                <span class="icon-bar"></span>#}
+{#                <span class="icon-bar"></span>#}
+{#                <span class="icon-bar"></span>#}
+{#            </button>#}
+{#            <a class="brand" href="/">BidHome</a>#}
+{#            <div class="nav-collapse collapse">#}
+{#                <ul class="nav pull-right right">#}
+{#                    {% if user.is_authenticated %}#}
+{#                        <li>#}
+{#                            <a href="{% url 'user_profile' %}">#}
+{#                                <span>{{ user.username }}</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a href="{% url 'logout' %}">#}
+{#                                <span>logout</span>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    {% else %}#}
+{#                        <li><a href="{% url 'django.contrib.auth.views.login' %}?next=/">login</a></li>#}
+{#                        <li><a href="{% url 'registration.views.register' %}">or sign up</a></li>#}
+{#                    {% endif %}#}
+{#                </ul>#}
+{#                <ul class="nav">#}
+{#                    <li class="active"><a href="{% url 'auctions_list' %}">Places</a></li>#}
+{##}
+{#                    <div class="btn-group">#}
+{#                        <a class="btn btn-primary" href="{% url 'create_auction' %}">Create an auction!</a>#}
+{#                    </div>#}
+{#                </ul>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+<div id="map-canvas"/>
+
+<script>
+
+</script>
+</body>
+</html>

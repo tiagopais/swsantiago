@@ -4,18 +4,24 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect, HttpResponseBadRequest
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
 from django.views.generic import FormView, ListView
-from django.views.generic import FormView, ListView, DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView
 from django.template import RequestContext
 from commons.forms import CreateAuctionForm, PlaceBidForm
 from commons.models import Auction
 
 
 def home(request):
+
+    auctions = Auction.objects.all()
+
     return render_to_response(
         'home.html',
+        {
+            'auctions': auctions
+        },
         context_instance=RequestContext(request))
 
 
