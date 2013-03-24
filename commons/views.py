@@ -44,6 +44,7 @@ class AuctionListView(ListView):
 class UserDetailView(DetailView):
     model = User
     template_name = 'user_detail.html'
+    context_object_name = 'detail_user'
 
 
 class AccountProfileView(TemplateView):
