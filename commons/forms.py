@@ -5,7 +5,7 @@ from commons.models import Auction, Bid
 class PlaceBidForm(forms.ModelForm):
     class Meta:
         model = Bid
-        fields = ['value', 'comment']
+        fields = ['value']
 
 
 class DetailAuctionForm(forms.ModelForm):

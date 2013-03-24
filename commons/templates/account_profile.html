@@ -34,14 +34,12 @@
             <tr>
                 <th>Auction</th>
                 <th>Bid amount</th>
-                <th>Comment</th>
             </tr>
             </thead>
             {% for bid in user.bid_set.all %}
                 <tr>
                     <td><a href="{% url 'auction_detail' bid.auction.id %}">{{ bid.auction.name }}</a></td>
                     <td>{{ bid.pretty_value }}</td>
-                    <td>{{ bid.comment }}</td>
                 </tr>
             {% endfor %}
         </table>
