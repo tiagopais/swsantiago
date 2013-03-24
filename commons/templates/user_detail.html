@@ -3,7 +3,7 @@
 {% load url from future %}
 
 {% block content %}
-    <h1>{{ user.username }}</h1>
+    <h1>{{ detail_user.username }}</h1>
 
     <hr />
 
@@ -17,7 +17,7 @@
                 <th>Minimum bid</th>
             </tr>
         </thead>
-        {% for auction in user.auction_set.all %}
+        {% for auction in detail_user.auction_set.all %}
             <tr>
                 <td><a href="{% url 'auction_detail' auction.id %}">{{ auction.name }}</a></td>
                 <td>{{ auction.creation_date }}</td>
