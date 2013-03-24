@@ -64,6 +64,13 @@
     </div>
 {% endif %}
 
+
+{% if request.flash.error %}
+    <div class="alert alert-error">
+        {{ request.flash.error }}
+    </div>
+{% endif %}
+
 {% block content %}
 {% endblock %}
 </div>

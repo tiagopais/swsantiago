@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -40,8 +42,15 @@ def place_bid(request, auction_id):
             form.instance.user = request.user
             form.instance.auction = auction
             form.save()
+
+            request.flash['success'] = u'Bid placed successfully for %s!' % form.instance.value
         else:
-            return HttpResponseBadRequest()
+            return render_to_response('auction_detail.html',
+                                      {
+                                          'auction': auction,
+                                          'bid_form': form
+                                      },
+                                      context_instance=RequestContext(request))
 
     return HttpResponseRedirect(reverse_lazy(auction_detail, args=(auction.id,)))
 

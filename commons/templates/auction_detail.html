@@ -30,9 +30,10 @@
             <form class="form-inline add_bid" method="post" action="{% url commons.views.place_bid auction.id %}">
                 {% csrf_token %}
 
-                <input type="text" name="value" id="id_value" placeholder="Value">
-                <textarea id="id_comment" rows="10" cols="30" name="comment" placeholder="Comment"></textarea>
-                <button type="submit" class="btn btn-primary">Place Bid!</button>
+                {{ bid_form|as_bootstrap }}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Place Bid!</button>
+                </div>
             </form>
         </div>
     </div>

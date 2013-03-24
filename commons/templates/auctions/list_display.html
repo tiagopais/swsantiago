@@ -11,10 +11,10 @@
         <address>{{ auction.address }}</address>
         <strong>Offered by:</strong> <a href="{% url 'user_detail' auction.user.id %}">{{ auction.user.username }}</a>
     </div>
-    <div class="span2">
+    <div class="span2 pull-right">
         <span class="price">{{ auction.pretty_minimum_bid }}</span>
+        <br />
         <span class="price">{{ auction.pretty_last_bid }}</span>
-
         <br />
         <a href="{% url 'auction_detail' auction.id %}" class="btn btn-success apply_button">Apply!</a>
     </div>
